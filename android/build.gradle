@@ -6,12 +6,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 25)
-    buildToolsVersion safeExtGet('buildToolsVersion', '25.0.2')
+    compileSdkVersion safeExtGet('compileSdkVersion', 27)
+    buildToolsVersion safeExtGet('buildToolsVersion', '27.0.3')
 
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 22)
+        targetSdkVersion safeExtGet('targetSdkVersion', 27)
         versionCode 1
         versionName "1.0"
     }
@@ -32,7 +32,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation "com.android.support:transition:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:transition:27.0.1"
 }
 
 def configureReactNativePom(def pom) {
@@ -85,8 +85,8 @@ afterEvaluate { project ->
 
     android.libraryVariants.all { variant ->
         def name = variant.name.capitalize()
-        task "jar${name}"(type: Jar, dependsOn: variant.javaCompileProvider.get()) {
-            from variant.javaCompileProvider.get().destinationDir
+        task "jar${name}"(type: Jar, dependsOn: variant.javaCompile) {
+            from variant.javaCompile.destinationDir
         }
     }
 
